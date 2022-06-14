@@ -18,3 +18,16 @@ message = "Welcome to the number guessing game! \n\
           \Try to guess it in as few attempts as possible.\n"
 
 
+askNumberOrQuit :: IO Integer
+askNumberOrQuit = do
+    putStrLn "Take a guess: " 
+    input <- getLine
+
+    let number = read input :: Integer
+    if number < 1 || number > 100
+        then do
+            putStrLn "Number must be between 1 and 100"
+            askNumberOrQuit
+        else return number
+
+
