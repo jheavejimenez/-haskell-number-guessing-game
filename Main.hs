@@ -31,3 +31,32 @@ askNumberOrQuit = do
         else return number
 
 
+playGame :: Integer -> IO ()
+playGame secretNumber = do
+    guess <- askNumberOrQuit
+
+    let maxGeusses = 10
+    let getTries = 0
+
+    if guess == secretNumber && getTries < maxGeusses
+        then do
+            putStrLn "You guessed the number!"
+            putStrLn "You won!"
+        else if getTries < maxGeusses
+            then do
+                if guess > secretNumber
+                    then do
+                        putStrLn "Your guess was too high"
+                        playGame secretNumber
+                    else do
+                        putStrLn "Your guess was too low"
+                        playGame secretNumber
+            else do
+                putStrLn "You lost!"
+
+
+main :: IO () 
+main = do
+    putStrLn message
+    secretNumber <- randomRIO (1, 100):: IO Integer
+    playGame secretNumber
