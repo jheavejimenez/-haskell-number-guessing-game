@@ -32,27 +32,26 @@ askNumber = do
 
 
 playGame :: Integer -> IO ()
-playGame secretNumber = do
-    guess <- askNumber
-
-    let maxGeusses = 10
-    let getTries = 0
-
-    if guess == secretNumber && getTries < maxGeusses
-        then do
-            putStrLn "You guessed the number!"
-            putStrLn "You won!"
-        else if getTries < maxGeusses
-            then do
-                if guess > secretNumber
+playGame secretNumber = go 1
+    where 
+        go getTries = do
+            guess <- askNumber
+            let maxGeusses = 3
+            if guess == secretNumber && getTries < maxGeusses
+                then do
+                    putStrLn "You guessed the number!"
+                    putStrLn "You won!"
+                else if getTries < maxGeusses
                     then do
-                        putStrLn "Your guess was too high"
-                        playGame secretNumber
+                        if guess > secretNumber
+                            then do
+                                putStrLn "Your guess was too high" >> go (getTries + 1)
+                                playGame secretNumber
+                            else do
+                                putStrLn "Your guess was too low" >> go (getTries + 1)
+                                playGame secretNumber
                     else do
-                        putStrLn "Your guess was too low"
-                        playGame secretNumber
-            else do
-                putStrLn "You lost!"
+                        die "You lost!"
 
 
 main :: IO () 
