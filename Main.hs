@@ -32,11 +32,11 @@ askNumber = do
 
 
 playGame :: Integer -> IO ()
-playGame secretNumber = counter 0
+playGame secretNumber = counter 1
     where 
         counter getTries = do
             let maxGeusses = 3
-            putStrLn $ "You have " ++ show (maxGeusses - getTries) ++ " tries left."
+            putStrLn $ "You have " ++ show (getTries) ++ " tries left."
             guess <- askNumber
             
             if guess == secretNumber && getTries < maxGeusses
