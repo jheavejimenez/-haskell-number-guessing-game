@@ -39,7 +39,7 @@ playGame secretNumber = counter 1
             putStrLn $ "You have " ++ show (getTries) ++ " tries left."
             guess <- askNumber
             
-            if guess == secretNumber && getTries < maxGeusses
+            if guess == secretNumber && getTries <= maxGeusses
                 then do
                     putStrLn "You guessed the number!"
                     die "You won!"
