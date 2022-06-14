@@ -36,7 +36,7 @@ playGame secretNumber = counter 1
     where 
         counter getTries = do
             let maxGeusses = 3
-            putStrLn $ "You have " ++ show (getTries) ++ " tries left."
+            putStrLn $ "You have " ++ show (maxGeusses - getTries) ++ " tries left.\n"
             guess <- askNumber
             
             if guess == secretNumber && getTries <= maxGeusses
@@ -47,10 +47,10 @@ playGame secretNumber = counter 1
                     then do
                         if guess > secretNumber
                             then do
-                                putStrLn "Your guess was too high" >> counter (getTries + 1)
+                                putStrLn "Your guess was too high\n" >> counter (getTries + 1)
                                 playGame secretNumber
                             else do
-                                putStrLn "Your guess was too low" >> counter (getTries + 1)
+                                putStrLn "Your guess was too low\n" >> counter (getTries + 1)
                                 playGame secretNumber
                     else do
                         die "You lost!"
@@ -60,5 +60,4 @@ main :: IO ()
 main = do
     putStrLn message
     secretNumber <- randomRIO (1, 100):: IO Integer
-    putStrLn $ "The secret number is " ++ show secretNumber
     playGame secretNumber
