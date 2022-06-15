@@ -25,25 +25,25 @@ playGame guesses_left solution = do
     case input of
       -- Input is badformed
       Nothing -> do
-        putStrLn "input isn't a number" 
+        putStrLn "input isn't a number"
         playGame guesses_left solution
 
       -- Input is out of range
-      Just guess | (guess < 1 || guess > 100) -> do 
-        putStrLn "Number must be between 1 and 100" 
+      Just guess | guess < 1 || guess > 100 -> do
+        putStrLn "Number must be between 1 and 100"
         playGame guesses_left solution
 
       -- Input is ok
-      Just guess -> do 
+      Just guess -> do
         case playRound guesses_left solution guess of
           Loose -> putStrLn "You lost!"
-          Win -> do 
+          Win -> do
             putStrLn "You guessed the number!"
             putStrLn "You Won!"
-          TooHigh -> do 
+          TooHigh -> do
             putStrLn "Your guess was too high"
             playGame (guesses_left - 1) solution
-          TooLow -> do 
+          TooLow -> do
             putStrLn "Your guess was too low"
             playGame (guesses_left - 1) solution
 
@@ -53,7 +53,7 @@ message = "Welcome to the number guessing game! \n\
           \The computer will generate a random number between 1 and 100.\n\
           \Try to guess it in as few attempts as possible.\n"
 
-main :: IO () 
+main :: IO ()
 main = do
     putStrLn message
     -- putStrLn "Set the max number of guesses:" 
