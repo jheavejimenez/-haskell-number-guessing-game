@@ -41,5 +41,5 @@ playGame secretNumber = go 0
 main :: IO () 
 main = do
     putStrLn message
-    secretNumber <- randomRIO (1, 100):: IO Integer
+    secretNumber <- System.Random.randomRIO (1, 100):: IO Integer
     playGame secretNumber
